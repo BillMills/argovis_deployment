@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:
+  replicas: {{ .Values.mongo.replicas }}
+  selector:
+    matchLabels:
+      component: mongo
+  template:
+    metadata:
+      name: argomongo
+      labels:
+        component: mongo
+        tier: db
+    spec:
+      volumes:
+        - name: mongostore
+          persistentVolumeClaim:
+            claimName: {{ .Values.mongo.pvcbacking }}
+      containers:
+        - name: task-pv-container
+          image: "{{ .Values.mongo.repository }}:{{ .Values.mongo.tag }}"
+          resources:
+            requests:
+              memory: {{ .Values.mongo.memoryrequest }}
+              cpu: {{ .Values.mongo.cpurequest }}
+            limits:
+              memory: {{ .Values.mongo.memorylimit }}
+              cpu: {{ .Values.mongo.cpulimit }}
+          volumeMounts:
+            - mountPath: "/data/db"
+              name: mongostore
+          livenessProbe:
+            exec:
+              command:
+              - mongo
+              - --eval
+              - db.adminCommand('ping')
+            failureThreshold: 3
+            periodSeconds: 300
+            successThreshold: 1
+            timeoutSeconds: 5

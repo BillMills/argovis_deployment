@@ -1,6 +1,6 @@
 mongo:
   repository: mongo
-  tag: 5.0.9
+  tag: 5.0.27
   replicas: 1
   memorylimit: "8Gi"
   cpulimit: "1000m"

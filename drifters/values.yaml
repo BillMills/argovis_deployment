@@ -7,5 +7,18 @@ mongo:
   memoryrequest: "8Gi"
   cpurequest: "1000m"
   pvcbacking: "mongo-back"
-
+redis:
+  repository: argovis/redis
+  tag: 7.0.15-240702
+  replicas: 1
+  memory: "100Mi"
+  cpu: "50m"
+api:
+  repository: argovis/api
+  tag: dev
+  replicas: 1
+  memory: "1000Mi"
+  cpu: "500m"
+  argocore: 'https://argovis-api.colorado.edu'
+  argonode: 'miami'
 

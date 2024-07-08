@@ -1,0 +1,24 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: argovis-drifter-api
+  annotations:
+    haproxy.router.openshift.io/timeout: 5m
+spec:
+  host: argovis-drifter-api-atoc-argovis-dev.apps.containers02.colorado.edu
+  to:
+    kind: Service
+    name: api
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: argovis-drifter-api-atoc-argovis-dev.apps.containers02.colorado.edu
+      routerName: default
+      routerCanonicalHostname: apps.containers02.colorado.edu
+

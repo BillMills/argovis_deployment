@@ -22,10 +22,13 @@ spec:
         - name: prom-server
           image: "{{ .Values.prom.repository }}:{{ .Values.prom.tag }}"
           imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: "/data/prometheus"
+              name: promdb
           resources:
             limits:
               memory: {{ .Values.prom.memory }}
               cpu: {{ .Values.prom.cpu }}
-          volumeMounts:
-            - mountPath: "/data/prometheus"
-              name: promdb
+            requests:
+              memory: "0Gi"
+              cpu: "0m"

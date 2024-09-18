@@ -21,4 +21,10 @@ api:
   cpu: "500m"
   argocore: 'https://argovis-api.colorado.edu'
   argonode: 'miami'
-
+prom:
+  repository: argovis/prometheus
+  tag: 240917
+  replicas: 1
+  memory: "100Mi"
+  cpu: "100m"
+  pvcbacking: prometheus-tsdb

@@ -23,7 +23,7 @@ api:
   argonode: 'miami'
 prom:
   repository: argovis/prometheus
-  tag: 240917
+  tag: 240918-drifters
   replicas: 1
   memory: "100Mi"
   cpu: "100m"
